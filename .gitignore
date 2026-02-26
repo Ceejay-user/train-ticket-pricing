@@ -1,4 +1,9 @@
 preprocessing/data-learning.ipynb
+mlruns/
+mlartifacts/
+mlflow.db
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
