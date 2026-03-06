@@ -1,5 +1,6 @@
 preprocessing/data-learning.ipynb
 mlruns/
+__pycache__/
 mlartifacts/
 mlflow.db
 venv

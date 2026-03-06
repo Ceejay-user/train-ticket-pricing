@@ -35,6 +35,12 @@ def clean_base_data(data):
 def engineer_time_features(data):
     """time feature engineering"""
     data = data.copy()
+
+    #convert dates to datetime format
+    date_cols = ['booking_date', 'travel_date']
+    for col in date_cols:
+        if col in data.columns:
+            data[col] = pd.to_datetime(data[col], errors='coerce')
     
     if 'booking_date' in data.columns:
         data['booking_month'] = data['booking_date'].dt.month
@@ -100,7 +106,7 @@ def drop_features(data):
     """Dropping features not required for modeling"""
     data = data.copy()
 
-    cols_to_drop = ['travel_day_of_week', 'base_price_at_booking', 'price_premium', 'load_factor', 'booking_day_of_week']
+    cols_to_drop = ['travel_day_of_week', 'base_price_at_booking', 'price_premium', 'load_factor', 'booking_day_of_week', 'booking_id', 'customer_id']
     existing_cols_to_drop = [col for col in cols_to_drop if col in data.columns]
     # Apply the drop only if there is something to drop
     if existing_cols_to_drop:
