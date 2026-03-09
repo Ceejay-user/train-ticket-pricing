@@ -9,7 +9,8 @@ from datetime import datetime
 import os
 from contextlib import asynccontextmanager
 
-tracking_uri = "http://127.0.0.1:5000"
+tracking_uri = "http://host.docker.internal:5000"
+
 model_uri = "models:/ticket_price_prediction_model/4"
 
 ml_models = {}
@@ -19,6 +20,7 @@ async def lifespan(app: FastAPI):
     mlflow.set_tracking_uri(tracking_uri)
     try:
         ml_models['pipeline'] = mlflow.pyfunc.load_model(model_uri)
+        print("MLflow Model loaded successfully")
     except Exception as e:
         print(f"Error loading model: {e}")
     yield

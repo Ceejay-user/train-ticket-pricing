@@ -1,0 +1,12 @@
+services:
+  ticket-api:
+    build: .
+    container_name: ticket-app
+    ports:
+    - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      # 'host.docker.internal' allows the container to see MLflow on your laptop
+      - MLFLOW_TRACKING_URI=http://host.docker.internal:5000
+    volumes:
+      - .:/app
