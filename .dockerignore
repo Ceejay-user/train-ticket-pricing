@@ -1,7 +1,7 @@
 preprocessing/data-learning.ipynb
 
 venv/
-
+.env
 Dataset/
 mlflow.db
 mlruns/

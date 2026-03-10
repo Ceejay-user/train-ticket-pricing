@@ -60,6 +60,7 @@ class PredictRequest(BaseModel):
 
 class PredictResponse(BaseModel):
     ticket_price_gbp: float
+    run_id: str
 
 
 @app.get('/health')
@@ -74,8 +75,12 @@ def predict(request: PredictRequest):
         raise HTTPException(status_code=503, detail="Model not loaded")
 
     try:
+        model_run_id = model.metadata.run_id
         input_data = pd.DataFrame([request.model_dump()])
         prediction = model.predict(input_data)[0]
-        return PredictResponse(ticket_price_gbp=float(prediction))
+        return PredictResponse(
+            ticket_price_gbp=float(prediction),
+            run_id=model_run_id
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
